@@ -1,0 +1,30 @@
+class Inventory:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item_name):
+        self.items.append(item_name)
+        print(f"Додано предмет: {item_name}")
+
+    def show_inventory(self):
+        if self.items:
+            print("Предмети в інвентарі:")
+            for item in self.items:
+                print(f"- {item}")
+        else:
+            print("Інвентар порожній")
+
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.inventory = Inventory()
+
+    def pick_up(self, item_name):
+        print(f"{self.name} підбирає лут...")
+        self.inventory.add_item(item_name)
+
+# Перевірка роботи
+gamer = Player("Alex")
+gamer.pick_up("Аптечка")
+gamer.pick_up("Патрони 5.56")
+gamer.inventory.show_inventory()
