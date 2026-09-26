@@ -1,0 +1,28 @@
+import random
+
+class Encrypter:
+    def __init__(self, number1, number2):
+        # Приховуємо (інкапсулюємо) числа через __
+        self.__num1 = number1
+        self.__num2 = number2
+        # Одразу проводимо випадкову операцію
+        self.__result = self.__encrypt()
+
+    # Приватний метод для проведення випадкової математичної операції
+    def __encrypt(self):
+        operation = random.choice(['+', '-', '*'])
+        if operation == '+':
+            return self.__num1 + self.__num2
+        elif operation == '-':
+            return self.__num1 - self.__num2
+        else:
+            return self.__num1 * self.__num2
+
+    # При виведенні об'єкта показуємо результат обчислень
+    def __str__(self):
+        return f"Результат шифрування: {self.__result}"
+
+
+# Перевірка роботи
+crypto = Encrypter(10, 5)
+print(crypto)  # Автоматично викликає __str__ та виводить результат
