@@ -1,28 +1,28 @@
-import random
+import time
+import unittest
 
-class Encrypter:
-    def __init__(self, number1, number2):
-        # Приховуємо (інкапсулюємо) числа через __
-        self.__num1 = number1
-        self.__num2 = number2
-        # Одразу проводимо випадкову операцію
-        self.__result = self.__encrypt()
+# Декоратор для вимірювання часу (з додаткового завдання)
+def timer_decorator(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        work_time = end - start
+        print(f"Функція виконалася за {work_time} секунд")
+        return result
+    return wrapper
 
-    # Приватний метод для проведення випадкової математичної операції
-    def __encrypt(self):
-        operation = random.choice(['+', '-', '*'])
-        if operation == '+':
-            return self.__num1 + self.__num2
-        elif operation == '-':
-            return self.__num1 - self.__num2
-        else:
-            return self.__num1 * self.__num2
+# Функція для перевірки декоратора
+@timer_decorator
+def test_func():
+    time.sleep(1)
+    return "ok"
 
-    # При виведенні об'єкта показуємо результат обчислень
-    def __str__(self):
-        return f"Результат шифрування: {self.__result}"
+# Тести для перевірки
+class TestTimer(unittest.TestCase):
+    def test_work(self):
+        res = test_func()
+        self.assertEqual(res, "ok")
 
-
-# Перевірка роботи
-crypto = Encrypter(10, 5)
-print(crypto)  # Автоматично викликає __str__ та виводить результат
+if __name__ == "__main__":
+    unittest.main()
